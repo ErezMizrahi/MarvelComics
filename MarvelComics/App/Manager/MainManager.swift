@@ -21,7 +21,6 @@ class MainManager {
         service.request(.search(limit: "100")) { (result) in
             switch result {
             case .success(let response):
-                print(try? JSONSerialization.jsonObject(with: response.data , options: .allowFragments))
                 do {
                     let decoder = try JSONDecoder().decode(Result.self, from: response.data)
                     let mapedDecoder = decoder.data.results.filter{

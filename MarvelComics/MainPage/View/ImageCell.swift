@@ -10,7 +10,7 @@ import UIKit
 
 class ImageCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var comicTitle: UILabel!
+    @IBOutlet weak var coloredView: UIView!
     
     var image: UIImage! {
         didSet {
@@ -18,13 +18,19 @@ class ImageCell: UICollectionViewCell {
         }
     }
     
-    override func awakeFromNib() {
-        self.imageView.layer.cornerRadius = 20
-        self.imageView.layer.masksToBounds = true
-    }
+    override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
+        super.apply(layoutAttributes)
+        
+        let standerdHeight = VisualLayoutConstents.Cell.standerdCellHeight
+        let feturedHeight = VisualLayoutConstents.Cell.feturedCellHeight
+        
+        let delta = 1 - ((feturedHeight - self.frame.height) / (feturedHeight - standerdHeight))
+        
+        let minAlpha: CGFloat = 0.3
+        let maxAlpha: CGFloat = 0.75
     
-    func populate(_ comic: Comic) {
-        comicTitle.text = comic.title
+        self.coloredView.alpha = maxAlpha - (delta * (maxAlpha - minAlpha))
     }
+
     
 }

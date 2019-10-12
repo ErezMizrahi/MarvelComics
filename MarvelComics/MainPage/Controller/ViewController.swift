@@ -17,6 +17,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionview.collectionViewLayout = CustomCollectionViewLayout()
        loadPage()
         
     }
@@ -56,7 +57,6 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
 
         }
         cell.imageView.sd_setImage(with: url)
-        cell.populate(arr[indexPath.row])
         return cell
     }
     
@@ -66,8 +66,11 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailsarr = arr[indexPath.row]
-        guard let url = URL(string: "\(detailsarr.thumbnail.path)/portrait_fantastic.\(detailsarr.thumbnail.extension)"), let desc = detailsarr.description else { return }
-
+        print(URL(string: "\(detailsarr.thumbnail.path)/portrait_fantastic.\(detailsarr.thumbnail.extension)"))
+        guard let url = URL(string: "\(detailsarr.thumbnail.path)/portrait_fantastic.\(detailsarr.thumbnail.extension)") else {
+   
+            return }
+        let desc = detailsarr.description ?? "none"
         let details =  Details(image: url , title: detailsarr.title, desc: desc)
         performSegue(withIdentifier: "details", sender: details)
     }
