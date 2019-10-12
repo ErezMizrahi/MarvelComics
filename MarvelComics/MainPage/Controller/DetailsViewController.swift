@@ -9,22 +9,20 @@
 import UIKit
 
 class DetailsViewController: UIViewController {
-
+    @IBOutlet weak var imageview: UIImageView!
+    @IBOutlet weak var coimcTitle: UILabel!
+    @IBOutlet weak var desc: UILabel!
+    
+    var details: Details?
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.imageview.sd_setImage(with: details?.image)
+        self.coimcTitle.text = details?.title
+        self.desc.text = details?.desc
+        
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
